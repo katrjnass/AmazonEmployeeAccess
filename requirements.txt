@@ -1,0 +1,4 @@
+pandas
+kagglehub
+scikit-learn
+catboost
