@@ -9,21 +9,21 @@ DATA_DIR = PROJECT_ROOT / 'data'
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
 df = download_dataset(str(DATA_DIR))
-X_train, X_val, y_train, y_val, df_x  = train_test_split_dataset(df)
-cat_features = list(range(df_x.shape[1]))
+X_train, X_val, y_train, y_val, df_x = train_test_split_dataset(df)
+cat_features = [col for col in df_x.columns]
 
 train_pool = Pool(X_train, y_train, cat_features=cat_features)
 val_pool = Pool(X_val, y_val, cat_features=cat_features)
 
 model = CatBoostClassifier(
-    iterations=2000,
+    iterations=1000,
     learning_rate=0.04,
     depth=6,
+    l2_leaf_reg=5.0,
     eval_metric='AUC',
-    random_seed=42,
-    task_type='CPU',
     early_stopping_rounds=100,
-    verbose=200
+    random_seed=42,
+    verbose=100
 )
 
 model.fit(train_pool, eval_set=val_pool)

@@ -2,3 +2,6 @@ pandas
 kagglehub
 scikit-learn
 catboost
+xgboost
+category_encoders
+itertools
