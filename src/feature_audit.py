@@ -1,7 +1,6 @@
 import itertools
 import pandas as pd
 from sklearn.feature_selection import mutual_info_classif
-from src.features import create_clean_pair
 
 
 def calc_density_metrics(series, min_freq=5):
@@ -13,7 +12,6 @@ def calc_density_metrics(series, min_freq=5):
     rows_in_rare = counts[counts < min_freq].sum()
 
     return {
-        'unique_count': n_unique,
         'cardinality_ratio': n_unique / n_rows,
         'singleton_ratio': singletons / n_unique,
         'rare_rows_coverage': rows_in_rare / n_rows,
@@ -53,7 +51,6 @@ def screen_feature_pairs(df, y, cat_cols, top_n=10, min_freq=5):
     for col1, col2 in pairs:
         pair_name = f'{col1}__{col2}'
         clean_pair = df[col1].astype(str) + '_' + df[col2].astype(str)
-        # clean_pair = create_clean_pair(df[col1], df[col2])
         metrics = audit_feature(clean_pair, y, min_freq=3)
         metrics['pair'] = pair_name
         results.append(metrics)
