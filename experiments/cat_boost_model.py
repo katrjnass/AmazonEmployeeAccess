@@ -1,8 +1,7 @@
-from sklearn.metrics import roc_auc_score
-from src.data_utils import download_dataset, train_test_split_dataset
 from pathlib import Path
+from sklearn.metrics import roc_auc_score
 from catboost import CatBoostClassifier, Pool
-
+from src.data_utils import download_dataset, train_test_split_dataset
 
 catboost_params = {
     'iterations': 1000,
@@ -15,6 +14,7 @@ catboost_params = {
     'verbose': 100,
 }
 
+
 def main():
     PROJECT_ROOT = Path(__file__).resolve().parent.parent
     DATA_DIR = PROJECT_ROOT / 'data'
@@ -22,7 +22,7 @@ def main():
 
     df = download_dataset(str(DATA_DIR))
     X_train, X_val, y_train, y_val, df_x = train_test_split_dataset(df)
-    cat_features = [col for col in df_x.columns]
+    cat_features = list(df_x.columns)
 
     train_pool = Pool(X_train, y_train, cat_features=cat_features)
     val_pool = Pool(X_val, y_val, cat_features=cat_features)
@@ -32,6 +32,7 @@ def main():
     model.fit(train_pool, eval_set=val_pool)
     y_proba = model.predict_proba(val_pool)[:, 1]
     print(roc_auc_score(y_val, y_proba))
+
 
 if __name__ == '__main__':
     main()

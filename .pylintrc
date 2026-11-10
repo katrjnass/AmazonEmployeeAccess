@@ -1,0 +1,8 @@
+[MESSAGES CONTROL]
+disable=missing-module-docstring, missing-function-docstring, invalid-name
+
+[MAIN]
+init-hook='import sys; sys.path.append(".")'
+
+[DESIGN]
+max-locals=20

@@ -1,7 +1,7 @@
-pandas
-kagglehub
-scikit-learn
-catboost
-xgboost
-category_encoders
-itertools
+catboost==1.2.10
+category_encoders==2.11.2
+kagglehub==1.0.3
+numpy==2.5.4
+pandas==3.1.1
+scikit_learn==1.9.1
+xgboost==3.4.1
