@@ -1,4 +1,7 @@
 # created by virtualenv automatically
 .venv/
 data/
-idea/
+.idea/
+catboost_info/
+models/
+submission*.csv
